@@ -5,7 +5,7 @@ event_stream
 
 ## Introduction ##
 
-event_stream makes it easier to expose custom events in Dart using the Stream API.
+Makes it easier to expose custom events in Dart using the Stream API.
 
 ## Getting Started ##
 
