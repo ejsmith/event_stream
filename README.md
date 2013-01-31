@@ -1,7 +1,7 @@
 event_stream
 ============
 
-[![](https://drone.io/github.com/ejsmith/event_stream/status.png)](https://drone.io/ejsmith/event_stream/latest)
+[![](https://drone.io/github.com/ejsmith/event_stream/status.png)](https://drone.io/github.com/ejsmith/event_stream/latest)
 
 ## Introduction ##
 
