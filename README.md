@@ -1,6 +1,8 @@
 event_stream
 ============
 
+[![Build Status](https://drone.io/github.com/ejsmith/event_stream/status.png)](https://github.com/ejsmith/event_stream/latest)
+
 ## Introduction ##
 
 EventStream makes it easier to expose custom events in Dart.
