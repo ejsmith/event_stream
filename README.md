@@ -1,6 +1,8 @@
 event_stream
 ============
 
+[![](https://drone.io/github.com/ejsmith/event_stream/status.png)](https://drone.io/github.com/ejsmith/event_stream/latest)
+
 ## Introduction ##
 
 EventStream makes it easier to expose custom events in Dart.
@@ -23,8 +25,6 @@ import 'package:event_stream/event_stream.dart';
 ```
 
 ## Example ##
-
-1\. Initialize an AssetManager:
 
 ```dart
 import 'package:event_stream/event_stream.dart';
