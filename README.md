@@ -32,8 +32,6 @@ import 'dart:async';
 
 class ClassWithEvents implements NotifyPropertyChanged {
   String _someProperty;
-  String _someOtherProperty;
-  int _someIntProperty;
   
   final EventStream<PropertyChangedEventArgs> _onPropertyChangedEvent = new EventStream<PropertyChangedEventArgs>();
   Stream<PropertyChangedEventArgs> get onPropertyChanged => _onPropertyChangedEvent.stream;
@@ -47,18 +45,6 @@ class ClassWithEvents implements NotifyPropertyChanged {
     _someProperty = value;
   }
   
-  String get someOtherProperty => _someOtherProperty;
-  set someOtherProperty(String value) {
-    _onPropertyChangedEvent.signal(new PropertyChangedEventArgs('someOtherProperty', value));
-    _someOtherProperty = value;
-  }
-  
-  int get someIntProperty => _someIntProperty;
-  set someIntProperty(int value) {
-    _onPropertyChangedEvent.signal(new PropertyChangedEventArgs('someIntProperty', value));
-    _someIntProperty = value;
-  }
-  
   close() {
     _onClosedEvent.signal();
   }
@@ -66,16 +52,9 @@ class ClassWithEvents implements NotifyPropertyChanged {
 
 main() {
   var c = new ClassWithEvents();
-  c.onPropertyChanged.listen((PropertyChangedEventArgs<String> args) => print('listen1: name=${args.propertyName} value=${args.value} type=${args.value.runtimeType}'));
-  c.onPropertyChanged.listen((PropertyChangedEventArgs<String> args) => print('listen2: name=${args.propertyName} value=${args.value} type=${args.value.runtimeType}'));
-  c.onClosed.listen((_) => print('closed1'));
-  c.onClosed.first.whenComplete(() => print('first closed'));
-  c.someProperty = "test1";
-  c.someOtherProperty = "test1";
-  c.someProperty = "test2";
-  c.someOtherProperty = "test2";
-  c.someIntProperty = 1;
-  c.close();
+  c.onPropertyChanged.listen((PropertyChangedEventArgs<String> args) => print('changed: name=${args.propertyName} value=${args.value}'));
+  c.onClosed.listen((_) => print('closed'));
+  c.someProperty = "test";
   c.close();
 }
 ```
