@@ -14,8 +14,7 @@ EventStream makes it easier to expose custom events in Dart.
 
 ```yaml
 dependencies:
-  event_stream:
-    git: https://github.com/ejsmith/event_stream.git
+  event_stream: any
 ```
 
 2\. Add the correct import for your project.
