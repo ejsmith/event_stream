@@ -24,8 +24,6 @@ import 'package:event_stream/event_stream.dart';
 
 ## Example ##
 
-1\. Initialize an AssetManager:
-
 ```dart
 import 'package:event_stream/event_stream.dart';
 
