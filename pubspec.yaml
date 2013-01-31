@@ -1,7 +1,7 @@
 name: event_stream
 version: 0.1.1
 author: Eric J. Smith <eric@codesmithtools.com>
-description: A collection of helper classes to make exposing custom events in Dart easier.
+description: Makes it easier to expose custom events using the Stream API.
 homepage: https://github.com/ejsmith/event_stream
 dependencies:
   unittest: any
