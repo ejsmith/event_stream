@@ -15,20 +15,20 @@ class ClassWithEvents implements NotifyPropertyChanged {
   
   String get someProperty => _someProperty;
   set someProperty(String value) {
-    _onPropertyChangedEvent.signal(new PropertyChangedEventArgs('someProperty', value));
     _someProperty = value;
+    _onPropertyChangedEvent.signal(new PropertyChangedEventArgs('someProperty', value));
   }
   
   String get someOtherProperty => _someOtherProperty;
   set someOtherProperty(String value) {
-    _onPropertyChangedEvent.signal(new PropertyChangedEventArgs('someOtherProperty', value));
     _someOtherProperty = value;
+    _onPropertyChangedEvent.signal(new PropertyChangedEventArgs('someOtherProperty', value));
   }
   
   int get someIntProperty => _someIntProperty;
   set someIntProperty(int value) {
-    _onPropertyChangedEvent.signal(new PropertyChangedEventArgs('someIntProperty', value));
     _someIntProperty = value;
+    _onPropertyChangedEvent.signal(new PropertyChangedEventArgs('someIntProperty', value));
   }
   
   close() {
