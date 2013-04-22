@@ -7,8 +7,8 @@ abstract class NotifyPropertyChanged {
 }
 
 class EventStream<T> {
-  StreamController<T> _controller = new StreamController<T>.asBroadcastStream();
-  Stream<T> get stream => _controller.stream;
+  StreamController<T> _controller = new StreamController<T>();
+  Stream<T> get stream => _controller.stream.asBroadcastStream();
   
   signal([T value]) {
     _controller.add(?value ? value : EventArgs.empty);
