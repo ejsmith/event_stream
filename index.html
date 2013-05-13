@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <link href='https://fonts.googleapis.com/css?family=Chivo:900' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="stylesheets/pygment_trac.css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print" />
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <title>Event stream by ejsmith</title>
+  </head>
+
+  <body>
+    <div id="container">
+      <div class="inner">
+
+        <header>
+          <h1>Event stream</h1>
+          <h2>event_stream makes it easier to expose custom events in Dart.</h2>
+        </header>
+
+        <section id="downloads" class="clearfix">
+          <a href="https://github.com/ejsmith/event_stream/zipball/master" id="download-zip" class="button"><span>Download .zip</span></a>
+          <a href="https://github.com/ejsmith/event_stream/tarball/master" id="download-tar-gz" class="button"><span>Download .tar.gz</span></a>
+          <a href="https://github.com/ejsmith/event_stream" id="view-on-github" class="button"><span>View on GitHub</span></a>
+        </section>
+
+        <hr>
+
+        <section id="main_content">
+          <h1>event_stream</h1>
+
+<p><a href="https://drone.io/github.com/ejsmith/event_stream/latest"><img src="https://drone.io/github.com/ejsmith/event_stream/status.png" alt=""></a></p>
+
+<h2>Introduction</h2>
+
+<p>Makes it easier to expose custom events in Dart using the Stream API.</p>
+
+<h2>Getting Started</h2>
+
+<p>1. Add the following to your project's <strong>pubspec.yaml</strong> and run
+<code>pub install</code>.</p>
+
+<div class="highlight"><pre><span class="l-Scalar-Plain">dependencies</span><span class="p-Indicator">:</span>
+  <span class="l-Scalar-Plain">event_stream</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">any</span>
+</pre></div>
+
+<p>2. Add the correct import for your project.</p>
+
+<div class="highlight"><pre><span class="k">import</span> <span class="s1">'package:event_stream/event_stream.dart'</span><span class="p">;</span>
+</pre></div>
+
+<h2>Example</h2>
+
+<div class="highlight"><pre><span class="k">import</span> <span class="s1">'package:event_stream/event_stream.dart'</span><span class="p">;</span>
+
+<span class="k">import</span> <span class="s1">'dart:async'</span><span class="p">;</span>
+
+<span class="kd">class</span> <span class="nc">ClassWithEvents</span> <span class="kd">implements</span> <span class="n">NotifyPropertyChanged</span> <span class="p">{</span>
+  <span class="kt">String</span> <span class="n">_someProperty</span><span class="p">;</span>
+
+  <span class="kd">final</span> <span class="n">EventStream</span><span class="o">&lt;</span><span class="n">PropertyChangedEventArgs</span><span class="o">&gt;</span> <span class="n">_onPropertyChangedEvent</span> <span class="o">=</span> <span class="k">new</span> <span class="n">EventStream</span><span class="o">&lt;</span><span class="n">PropertyChangedEventArgs</span><span class="o">&gt;</span><span class="p">();</span>
+  <span class="n">Stream</span><span class="o">&lt;</span><span class="n">PropertyChangedEventArgs</span><span class="o">&gt;</span> <span class="kd">get</span> <span class="n">onPropertyChanged</span> <span class="o">=&gt;</span> <span class="n">_onPropertyChangedEvent</span><span class="p">.</span><span class="n">stream</span><span class="p">;</span>
+
+  <span class="kd">final</span> <span class="n">EventStream</span> <span class="n">_onClosedEvent</span> <span class="o">=</span> <span class="k">new</span> <span class="n">EventStream</span><span class="p">();</span>
+  <span class="n">Stream</span> <span class="kd">get</span> <span class="n">onClosed</span> <span class="o">=&gt;</span> <span class="n">_onClosedEvent</span><span class="p">.</span><span class="n">stream</span><span class="p">;</span>
+
+  <span class="kt">String</span> <span class="kd">get</span> <span class="n">someProperty</span> <span class="o">=&gt;</span> <span class="n">_someProperty</span><span class="p">;</span>
+  <span class="kd">set</span> <span class="n">someProperty</span><span class="p">(</span><span class="kt">String</span> <span class="n">value</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">_someProperty</span> <span class="o">=</span> <span class="n">value</span><span class="p">;</span>
+    <span class="n">_onPropertyChangedEvent</span><span class="p">.</span><span class="n">signal</span><span class="p">(</span><span class="k">new</span> <span class="n">PropertyChangedEventArgs</span><span class="p">(</span><span class="s1">'someProperty'</span><span class="p">,</span> <span class="n">value</span><span class="p">));</span>
+  <span class="p">}</span>
+
+  <span class="n">close</span><span class="p">()</span> <span class="p">{</span>
+    <span class="n">_onClosedEvent</span><span class="p">.</span><span class="n">signal</span><span class="p">();</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="n">main</span><span class="p">()</span> <span class="p">{</span>
+  <span class="kd">var</span> <span class="n">c</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ClassWithEvents</span><span class="p">();</span>
+  <span class="n">c</span><span class="p">.</span><span class="n">onPropertyChanged</span><span class="p">.</span><span class="n">listen</span><span class="p">((</span><span class="n">PropertyChangedEventArgs</span><span class="o">&lt;</span><span class="kt">String</span><span class="o">&gt;</span> <span class="n">args</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="n">print</span><span class="p">(</span><span class="s1">'changed: name=</span><span class="si">${</span><span class="n">args</span><span class="p">.</span><span class="n">propertyName</span><span class="si">}</span><span class="s1"> value=</span><span class="si">${</span><span class="n">args</span><span class="p">.</span><span class="n">value</span><span class="si">}</span><span class="s1">'</span><span class="p">));</span>
+  <span class="n">c</span><span class="p">.</span><span class="n">onClosed</span><span class="p">.</span><span class="n">listen</span><span class="p">((</span><span class="n">_</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="n">print</span><span class="p">(</span><span class="s1">'closed'</span><span class="p">));</span>
+  <span class="n">c</span><span class="p">.</span><span class="n">someProperty</span> <span class="o">=</span> <span class="s2">"test"</span><span class="p">;</span>
+  <span class="n">c</span><span class="p">.</span><span class="n">close</span><span class="p">();</span>
+<span class="p">}</span>
+</pre></div>
+        </section>
+
+        <footer>
+          Event stream is maintained by <a href="https://github.com/ejsmith">ejsmith</a><br>
+          This page was generated by <a href="http://pages.github.com">GitHub Pages</a>. Tactile theme by <a href="http://twitter.com/jasonlong">Jason Long</a>.
+        </footer>
+
+        
+      </div>
+    </div>
+  </body>
+</html>
