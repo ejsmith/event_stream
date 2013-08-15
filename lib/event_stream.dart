@@ -9,13 +9,13 @@ abstract class NotifyPropertyChanged {
 class EventStream<T> {
   StreamController<T> _controller = new StreamController<T>();
   Stream<T> stream;
-  
+
   EventStream() {
     stream = _controller.stream.asBroadcastStream();
   }
-  
+
   signal([T value]) {
-    _controller.add(?value ? value : EventArgs.empty);
+    _controller.add(value ? value : EventArgs.empty);
   }
 }
 
