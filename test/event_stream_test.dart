@@ -7,20 +7,12 @@ import 'dart:async';
 
 void main() {
   group('event_stream tests: ', () {
-    setUp(() {
-    });
-    
     test('Can fire event', () {
-      bool eventFired = false;
-      bool propertyChangeFired = false;
       var c = new ClassWithEvents();
-      c.onPropertyChanged.listen((PropertyChangedEventArgs<String> args) => propertyChangeFired = true);
-      c.onClosed.listen((_) => eventFired = true);
+      c.onPropertyChanged.listen(expectAsync1((_) {}));
+      c.onClosed.listen(expectAsync1((_) {}));
       c.someProperty = "test";
       c.close();
-      
-      expect(propertyChangeFired, true);
-      expect(eventFired, true);
     });
   });
 }

@@ -15,7 +15,7 @@ class EventStream<T> {
   }
 
   signal([T value]) {
-    _controller.add(value ? value : EventArgs.empty);
+    _controller.add(value != null ? value : EventArgs.empty);
   }
 }
 
